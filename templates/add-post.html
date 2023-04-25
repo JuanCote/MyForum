@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class='content'>
+    <div class="container">
+        <div class='header-threads'>
+            <div class='name-forum'>
+                Создать тему
+            </div>
+        </div>
+        <div class='block-add-post'>
+            <form action={{ url_for('add_post', thread_name=thread_name) }} method="POST">
+                {{ form.hidden_tag() }}
+                {{ form.csrf_token }}
+                <div class='block-add-post-1'>
+                    <div class='name-post'>
+                        {{ form.threads_name(class_='threads_name', placeholder="Заголовок темы") }}
+                    </div>
+                    <div class='text-post'>
+                        {{ form.threads_text(class_='threads_text') }}
+                    </div>
+                </div>
+                <div class='block-add-post-2'>
+                    <div class='but-add'>
+                        {{ form.submit(class_='add-post-submit') }}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

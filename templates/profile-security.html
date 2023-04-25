@@ -1,0 +1,37 @@
+{% extends 'profile-base.html' %}
+{% block profile_security %}
+<form action="/profile/security" method="POST" class="form-security" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+    {{ form.csrf_token }}
+    <div class="right-window-security">
+        <div class="info-profile">Безопасность</div>
+        <div class="parts-profile">
+            <div class="first-part-right-security">
+                <ul class="ul-first-part-right">
+                    <li class="li-psw-now">Ваш текущий пароль:</li>
+                    <li class="li-psw-new">Новый пароль:</li>
+                    <li class="li-psw-confirm">Подтверждение нового пароля:</li>
+                </ul>
+            </div>
+            <div class='second-part-right-security'>
+                {{ form.psw_now(class_='security-now-psw') }}
+                <div class="under-input-security">По соображениям безопасности, Вы должны указать текущий пароль перед его изменением.</div>
+                {{ form.psw_new(class_="security-new-psw") }}
+                {{ form.psw_confirm(class_="security-new-psw") }}
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        <ul class="fleshes">
+                            {% for category, message in messages %}
+                            <li class="{{ category }}">{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}    
+                {% endwith %}
+            </div>
+        </div>
+        <div class="form-footer">
+            {{ form.submit(class_='sumbit-form-information-security') }}
+        </div>
+    </div>
+</form>
+{% endblock %}

@@ -1,0 +1,96 @@
+{% extends 'profile-base.html' %}
+{% block account_details %}
+<form action="/profile/account-details" method="POST" class="form-profile" enctype="multipart/form-data">
+    <div class="right-window">
+        <div class="info-profile">Информация</div>
+        <div class="parts-profile">
+            <div class="first-part-right">
+                <ul class="ul-first-part-right">
+                    <li class="li-email">Электронная почта:</li>
+                    <li class="li-email-options">Опции электронной почты:</li>
+                    <li class="li-avatar">Аватар:</li>
+                    <li class="li-data">Дата рождения:</li>
+                    <li class="li-adress">Адрес:</li>
+                    <li class="li-sex mt-3">Пол:</li>
+                    <li class="li-aboutme">Обо мне:</li>
+                </ul>
+            </div>
+            <div class="second-part-right">
+                 <div class="email-inform">{{ current_user.email }}</div>
+                 <div class="checkboxes">
+                     <div class="checkbox-1">
+                         {{ form.get_email_from_group(checked=user.get_email_from_group) }}
+                         <label class="get-email-checkbox" for="get-email">Получать электронные письма о новостях и обновлениях</label>
+                     </div>
+                     <div class="checkbox-2">
+                         {{ form.get_ping_from_group(checked=user.get_ping_from_group) }}
+                         <label class="get-email-checkbox" for="get-email-start">Уведомление о начале нового обсуждения в Вашей группе.</label>
+                     </div>
+                 </div>
+                 <div class="avas">
+                     <img class="profile-ava" src="{{ url_for('userava') }}">
+                     <div class="profile-load">
+                         <p><input class="file-type" type="file" name="file"><label class="file-label" for="file"></label>
+                     </div>
+                     {% with messages = get_flashed_messages(category_filter='ava_success') %}
+                            {% if messages %}
+                                <ul class="fleshes">
+                                    {% for message in messages %}
+                                    <li class="ava_success">{{ message }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}    
+                     {% endwith %}
+                     {% with messages = get_flashed_messages(category_filter='ava_error') %}
+                            {% if messages %}
+                                <ul class="fleshes">
+                                    {% for message in messages %}
+                                    <li class="ava_error">{{ message }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}    
+                     {% endwith %}
+                 </div>
+                 <div class="data-birth">
+                     {{ form.date_of_birth(class_='data-birth-input', value=user.date_of_birth) }}
+                     <div class="checkbox-date">
+                         <p>{{ form.show_date_of_birth(checked=user.show_date_of_birth) }}
+                         <label class="label-checkbox-show-date">Показывать год рождения</label>
+                     </div>
+                     <p class="under-checkbox-date-birth">Это позволит пользователям видеть Ваш возраст.</p>
+                 </div>
+                 <div class="adress-div">
+                     {{ form.adress(class_='adress') }}
+                 </div>
+                 <div class="sex-div">
+                    <ul checked class="sex" id="sex"><li><input {{ sex_pocket['man'] }} id="sex-0" name="sex" type="radio" value="man"> <label for="sex-0">Мужской</label></li><li><input {{ sex_pocket['woman'] }} id="sex-1" name="sex" type="radio" value="woman"> <label for="sex-1">Женский</label></li><li><input {{ sex_pocket['other'] }} id="sex-2" name="sex" type="radio" value="other"> <label for="sex-2">Другое</label></li></ul>
+                 </div>
+                 <div class="about-me">
+                     {{ form.about_me(class_='textarea-aboutme') }}
+                 </div>
+                 {% with messages = get_flashed_messages(category_filter=["success_profile"]) %}
+                            {% if messages %}
+                                <ul class="fleshes">
+                                    {% for message in messages %}
+                                    <li class="success_profile">{{ message }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}    
+                {% endwith %}
+                {% with messages = get_flashed_messages(category_filter=["error_profile"]) %}
+                            {% if messages %}
+                                <ul class="fleshes">
+                                    {% for message in messages %}
+                                    <li class="error_profile">{{ message }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}    
+                {% endwith %}
+            </div>
+        </div>
+        <div class="form-footer">
+            <input class="sumbit-form-information" type="submit" value="Загрузить" name="action1">
+        </div>
+    </div>
+</form>
+{% endblock %}

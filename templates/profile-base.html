@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="content-profile">
+        <div class="container-profile">
+            <div class="left-window">
+                <ul class="left-window-ul">
+                    <li class="vash-akk"><span class="record"><i class="fa-solid fa-clipboard"></i></span>Ваш аккаунт</li>
+                    <li class="first-part-ul">Ваш профиль</li>
+                    <li class="first-part-ul">Оповещения</li>
+                    <li class="first-part-ul">Полученные реакции</li>
+                    <li class="first-part-ul">Закладки</li>
+                    <li class="nastroiki"><span class="record"><i class="fa-solid fa-clipboard"></i></span>Настройки</li>
+                    <a href={{ url_for('profile') }}><li class="second-part-ul">Информация</li></a>
+                    <a href={{ url_for('security') }}><li class="second-part-ul">Безопасность</li></a>
+                    <li class="second-part-ul">Конфиденциальность</li>
+                    <li class="second-part-ul">Настройки</li>
+                    <li class="second-part-ul">Подпись</li>
+                    <li class="second-part-ul">Подписки</li>
+                    <li class="second-part-ul">Игнорирование</li>
+                    <a href="{{ url_for('logout') }}"><li class="second-part-ul">Выход</li></a>
+                </ul>
+            </div>
+                {% block account_details %}{% endblock %}
+                {% block profile_security %}{% endblock %}
+        </div>
+    </div>
+{% endblock %}

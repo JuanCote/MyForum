@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="background">
+        <div class="window-registration">
+            <form action="" method="post" class="form-contact">
+                {{ form.hidden_tag() }}
+                <div class="window-name">
+                    Вход
+                </div>
+                <div class="blocks">
+                    <div class="block-1">
+                        <div class="data-user-login">{{ form.email.label() }}</div>
+                        <div class="data-user-login-psw">Пароль:</div>
+                    </div>
+                    <div class="block-2"> 
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                            {% if messages %}
+                                <ul class="fleshes">
+                                    {% for category, message in messages %}
+                                    <li class="{{ category }}">{{ message }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}    
+                        {% endwith %}
+                        {% for error in form.email.errors %}
+                                <li class='flash-login'>{{ error }}</li>
+                        {% endfor %}
+                        {{ form.email(class_="user-email-login") }}
+                        {{ form.psw(class_="user-psw-login") }}
+                        <div class="remind-user-login">
+                            {{ form.remember.label(class_='data-user-remind') }}{{ form.remember() }}
+                        </div>
+                    </div>
+                </div>
+                <div class="window-footer">
+                    <input type="submit" class="register-submit" value="Войти">
+                </div>
+            </form>
+            <div class='under-form-login'>
+                У вас еще нет учетной записи? <a class='a-register' href={{ url_for('register') }}>Зарегистрируйтесь</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

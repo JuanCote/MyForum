@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="background">
+        <div class="window-registration">
+            <form action="/register" method="POST" class="form-contact">
+            {{ form.hidden_tag() }}
+            {{ form.csrf_token }}
+                <div class="window-name">
+                    Регистрация 
+                </div>
+                <div class="blocks">
+                    <div class="block-1">
+                        <div class="data-user">Имя пользователя:</div>
+                        <span class="register-under">Обязательно</span>
+                        <div class="data-user">Электронная почта:</div>
+                        <span class="register-under">Обязательно</span>
+                        <div class="data-user">Пароль:</div>
+                        <span class="register-under">Обязательно</span>
+                        <div class="data-user">Повтор пароля:</div>
+                        <span class="register-under">Обязательно</span>
+                    </div>
+                    <div class="block-2">
+                        {{ form.username(class_="user-name") }}
+                        <div class="under-input">Это имя будет отображаться во всех сообщениях</div>
+                        {{ form.email(class_="user-email") }}
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                            {% if messages %}
+                                <ul class="fleshes">
+                                    {% for category, message in messages %}
+                                    <li class="flash-register-error">{{ message }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}    
+                        {% endwith %}
+                        {% for error in form.email.errors %}
+                                <li class='flash-login'>{{ error }}</li>
+                        {% endfor %}
+                        {{ form.psw(class_="user-psw") }}
+                        {% for error in form.psw2.errors %}
+                            <li class='flash-register-error'>{{ error }}</li>
+                        {% endfor %}
+                        {{ form.psw2(class_="user-psw2") }}
+                    </div>
+                </div>
+                <div class="window-footer">
+                    <input type="submit" class="register-submit" value="Регистрация">
+                </div>
+            </form>
+            <div class='under-form-register'>
+                Уже есть учетная запись? <a class='a-register' href={{ url_for('login') }}>Войти</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

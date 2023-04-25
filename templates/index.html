@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="content">
+    <div class="container">
+        <h1 class="welcom">Добро пожаловать на форум Samp-Rp</h1>
+        <p class="under-welcom">Для того, что бы общаться с другими игроками, а так же участвовать в жизни форума, вы должны пройти регистрацию либо авторизацию.</p>
+        {% for section, threads in content.items() %}
+        <div class="general-section">
+            <div class="header-general-section">
+                <div class="header-general-section-text">{{ section }}</div>
+            </div>
+            <div class="general-section-content">
+                {% for thread, values in threads.items() %}
+                    <div class="general-section-content-post">  
+                        <a class='a-post' href={{ url_for('forums', thread_name=values['translate_name']) }}>      
+                            <div class="general-section-content-post-2">
+                                <div class="general-section-content-post-1chast">
+                                    <div class="general-section-content-post-name"><span class="ico-chat"><span class="fa-solid fa-comments"></i></span><span class="general-section-content-post-name-span">{{ thread }}</span></div>
+                                    <div class="general-section-content-post-counttem">
+                                        <span class="general-section-content-post-counttem-chislo">100</span>
+                                        <span class="general-section-content-post-counttem-temi">Темы</span>
+                                    </div>
+                                </div>
+                                <div class="general-section-content-post-2chast">
+                                    <div class="general-section-content-post-2chast-countsoobsh">
+                                        <span class="general-section-content-post-2chast-countsoobsh-chislo">200</span>
+                                        <span class="general-section-content-post-2chast-countsoobsh-soobshi">Сообщения</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+        <div class="users-online">
+            <div class="users-names"><i class="fa-solid fa-users"></i>Пользователи онлайн</div>
+        </div>
+    </div>
+</div>
+{% endblock %}

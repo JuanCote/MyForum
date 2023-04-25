@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block content %}
+<div class='content'>
+    <div class="container">
+        <div class='header-threads'>
+            <div class='name-forum'>
+                {{ name }}
+            </div>
+            {% if current_user.is_authenticated %}
+            <a class='a-add-post' href={{ url_for('add_post', thread_name=thread_name) }}><div class='button-add-post'><span class='pensil'><i class="fa-solid fa-pen"></i></span><span class='post-add-text'>Создать тему</span></div></a>
+            {% endif %}
+        </div>
+        {% if content %}
+        <div class='general-section'>
+            <div class="general-section-content">
+                {% for thread, values in content.items() %}
+                    <div class="general-section-content-post">  
+                        <a class='a-post' href={{ url_for('forums', thread_name=values['translate_name']) }}>      
+                            <div class="general-section-content-post-2">
+                                <div class="general-section-content-post-1chast">
+                                    <div class="general-section-content-post-name"><span class="ico-chat"><span class="fa-solid fa-comments"></i></span><span class="general-section-content-post-name-span">{{ thread }}</span></div>
+                                    <div class="general-section-content-post-counttem">
+                                        <span class="general-section-content-post-counttem-chislo">100</span>
+                                        <span class="general-section-content-post-counttem-temi">Темы</span>
+                                    </div>
+                                </div>
+                                <div class="general-section-content-post-2chast">
+                                <div class="general-section-content-post-2chast-countsoobsh">
+                                    <span class="general-section-content-post-2chast-countsoobsh-chislo">200</span>
+                                    <span class="general-section-content-post-2chast-countsoobsh-soobshi">Сообщения</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+        {% if content2 %}
+        <div class='general-section-underthreads'>
+            <div class='filter-bar'></div>
+            {% for under_thread, values in content2.items() %}
+            <div class='thread'>
+                <div class='avatar-creater'><img src="{{ url_for('userava_thread', id=values.user_id) }}" class='avatar-creater-img'></div>
+                <div class='name-part'>
+                    <a class='a-thread' href={{ url_for('thread', underthread_name=values['translate_name']) }}><div class='name-underthread'>{{ under_thread }}</div></a>
+                    <div class='name-part-useranddate'>
+                        <div class='username-underthread'>{{ values.username }}</div>
+                        <div class='date-underthread'>{{ values.time }}</div>
+                    </div>
+                </div>
+                <div class='status-part'>
+                    <div class='status-underthread'><i class="fa-solid fa-lock"></i></div>
+                    <div class='views-and-answers'>
+                        <div class='answers-underthread'>Ответы: <span class='answers-count'>10</span></div>
+                        <div class='views-underthread'>Просмотры: <span class='views-count'>5000</span></div>
+                    </div>
+                </div>
+                <div class='end-part'>
+                    <div class='end-date-underthread'>27.03.2022</div>
+                    <div class='end-username-underthread'>El_Capone</div>
+                </div>
+                <div class='end-ava-underhtread'><img src="{{ url_for('static', filename='images/Без названия.jpg') }}" class='avatar-creater-img'></div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% if content is none and content2 is none %}
+        <div class='razdel-pust'>
+            Раздел пуст
+        </div>
+        {% endif %}
+        {% if not current_user.is_authenticated %}
+        <a href={{ url_for('login') }}><div class='button-login-or-register'>
+            Войдите или зарегистрируйтесь для ответа.
+        </div></a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+

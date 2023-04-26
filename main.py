@@ -224,7 +224,7 @@ def profile():
     user = User.query.filter_by(id=current_user.get_id()).first()
     form = ProfileDetailsForm()
     if request.method == 'POST':
-        if request.form.get('action1') == 'Загрузить':
+        if request.form.get('action1') == 'Save':
             file = request.files['file']
             if verify_ext(file.filename):
                 img = file.read()
@@ -232,14 +232,14 @@ def profile():
                 user.avatar = binary
                 local_object = db.session.merge(user)
                 try:
-                    flash('Аватар успешно обновлен', 'ava_success')
+                    flash('Avatar updated successfully', 'ava_success')
                 except:
 
-                    flash('Ошибка при добавлении файла в базу', 'ava_error')
+                    flash('Error adding file to database', 'ava_error')
             elif not file:
                 pass
             else:
-                flash("Неверный формат файла", 'ava_error')
+                flash("Invalid file format", 'ava_error')
             user.get_email_from_group = form.get_email_from_group.data
             user.get_ping_from_group = form.get_ping_from_group.data
             user.date_of_birth = form.date_of_birth.data
@@ -251,9 +251,9 @@ def profile():
             try:
                 db.session.add(local_object)
                 db.session.commit()
-                flash('Профиль успешно изменен', 'success_profile')
+                flash('Profile changed successfully', 'success_profile')
             except:
-                flash('Ошибка при добавлениив базу данных', 'error_profile')
+                flash('Error adding to database', 'error_profile')
     form.adress.data = user.adress
     form.about_me.data = user.about_me
     sex_pocket = {'man': False,

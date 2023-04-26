@@ -4,7 +4,7 @@
     <div class="container">
         <div class='header-threads'>
             <div class='name-forum'>
-                Создать тему
+                Create topic
             </div>
         </div>
         <div class='block-add-post'>
@@ -13,7 +13,7 @@
                 {{ form.csrf_token }}
                 <div class='block-add-post-1'>
                     <div class='name-post'>
-                        {{ form.threads_name(class_='threads_name', placeholder="Заголовок темы") }}
+                        {{ form.threads_name(class_='threads_name', placeholder="Topic title") }}
                     </div>
                     <div class='text-post'>
                         {{ form.threads_text(class_='threads_text') }}

@@ -7,7 +7,7 @@
                 {{ name }}
             </div>
             {% if current_user.is_authenticated %}
-            <a class='a-add-post' href={{ url_for('reply_to_thread', underthread_name=underthread_name) }}><div class='button-add-reply'><span class='pensil'><i class="fa-solid fa-pen"></i></span><span class='post-add-text'>Ответить</span></div></a>
+            <a class='a-add-post' href={{ url_for('reply_to_thread', underthread_name=underthread_name) }}><div class='button-add-reply'><span class='pensil'><i class="fa-solid fa-pen"></i></span><span class='post-add-text'>Answer</span></div></a>
             {% endif %}
         </div>
         <div class='messages'>
@@ -18,7 +18,7 @@
                     <div class='message-ava-part'>
                         <div class='message-ava'><img class='message-ava-img' src={{ url_for('userava_thread', id=values.user_id) }}></div>
                         <div class='message-username'>{{ values.username }}</div>
-                        <div class='message-user-status'>Пользователь</div>
+                        <div class='message-user-status'>User</div>
                     </div>
                 </div>
                 <div class='message-part-2'>

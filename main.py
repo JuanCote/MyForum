@@ -19,7 +19,7 @@ from flask_migrate import Migrate
 
 from config import Config
 from forms import LoginForm, RegisterForm, ProfileDetailsForm, ProfileSecurity, PostAdd, ReplyToThread
-from models import db, Sections, User, getAvatar, verifyExt, Under_threads, Messages, Threads
+from models import db, Sections, User, get_avatar, verify_ext, Under_threads, Messages, Threads
 
 DEBUG = True
 MAX_CONTENT_LENGTH = 1024 * 1024  # TODO: Изменить дерьмо
@@ -67,9 +67,9 @@ def index():
 @app.route('/forums/<thread_name>/')
 def forums(thread_name):
     id = thread_name.split('.')[-1]
-    parent = threads.query.filter_by(id=id).first()
+    parent = Threads.query.filter_by(id=id).first()
     parent_name = parent.threads_name
-    threads = threads.query.filter_by(parent_id=parent.id).all()
+    threads = Threads.query.filter_by(parent_id=parent.id).all()
     threads_dict = dict()
     for thread in threads:
         threads_dict[thread.threads_name] = {
@@ -77,10 +77,9 @@ def forums(thread_name):
             'translate_name': thread.threads_name.replace(' ', '-').lower() + '.' + str(thread.id)
         }
 
-    User, Thread = User, under_threads
     # Join user and under_thread
-    under_threads = db.session.query(User, Thread).filter(Thread.parent_id == id).join(Thread,
-                                                                                       User.id == Thread.user_id).all()
+    under_threads = db.session.query(User, Under_threads).filter(Under_threads.parent_id == id).join(Under_threads,
+                                                                                       User.id == Under_threads.user_id).all()
     under_threads_dict = dict()
 
     for under_thread in under_threads:
@@ -107,7 +106,6 @@ def add_post(thread_name):
     id = thread_name.split('.')[-1]
 
     if form.validate_on_submit():
-        print('submit')
         threads_name = form.threads_name.data
         thread_text = form.threads_text.data
         thread_time = datetime.utcnow()
@@ -116,7 +114,7 @@ def add_post(thread_name):
         username = User.query.filter_by(id=user_id).first().username
 
         try:
-            thread = under_threads(threads_name=threads_name, threads_text=thread_text, time=thread_time,
+            thread = Under_threads(threads_name=threads_name, threads_text=thread_text, time=thread_time,
                                           parent_id=parent_id, user_id=user_id, username=username)
             db.session.add(thread)
             db.session.commit()
@@ -195,7 +193,7 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         if user is None or not user.check_password(form.psw.data):
-            flash('Неверный адрес электронной почты или пароль', 'flash-login')
+            flash('Invalid email address or password', 'flash-login')
             return (redirect(request.args.get("next") or url_for('login')))
         login_user(user, remember=form.remember.data)
         return redirect(url_for('index'))
@@ -214,12 +212,12 @@ def register():
                 u = User(email=form.email.data, password_hash=hash, username=form.username.data)
                 db.session.add(u)
                 db.session.commit()
-                flash('Вы успешно зарегестрировались', 'flash-register-success')
+                flash('You have successfully registered', 'flash-register-success')
                 return redirect(url_for('login'))
             else:
-                flash('Этот ник уже занят', 'flask-register-error')
+                flash('This nickname is already taken', 'flask-register-error')
         else:
-            flash('Эта почта уже занята', 'flash-register-error')
+            flash('This email is already taken', 'flash-register-error')
     return render_template('register.html', form=form)
 
 
@@ -231,7 +229,7 @@ def profile():
     if request.method == 'POST':
         if request.form.get('action1') == 'Загрузить':
             file = request.files['file']
-            if verifyExt(file.filename):
+            if verify_ext(file.filename):
                 img = file.read()
                 binary = sqlite3.Binary(img)
                 user.avatar = binary
@@ -281,32 +279,29 @@ def security():
     new = form.psw_new.data
     if request.method == 'POST' and form.validate():
         if form.psw_new.data != form.psw_confirm.data:
-            flash('Пароли не совпадают', 'flash-security-error')
+            flash('Password mismatch', 'flash-security-error')
         else:
             if user is None or not user.check_password(form.psw_now.data):
-                flash('Неверный текущий пароль', 'flash-security-error')
+                flash('Wrong current password', 'flash-security-error')
             else:
                 if form.psw_now.data == form.psw_new.data:
-                    flash('Новый пароль не может совпадать со старым', 'flash-security-error-1')
+                    flash('The new password cannot match the old one.', 'flash-security-error-1')
                 else:
                     user.password_hash = generate_password_hash(form.psw_new.data)
                     local = db.session.merge(user)
                     try:
                         db.session.add(local)
                         db.session.commit()
-                        flash('Пароль успешно изменен', 'flash-security-success')
+                        flash('Password changed successfully', 'flash-security-success')
                     except:
-                        flash('Ошибка при добавлении в базу данных', 'flash-security-error')
-                        print('Ошибка при добавлении в базу данных')
-    else:
-        print('not enter')
+                        flash('Error adding to database', 'flash-security-error')
     return render_template('profile-security.html', form=form)
 
 
 @app.route('/userava')
 @login_required
 def userava():
-    img = getAvatar(current_user.get_id())
+    img = get_avatar(current_user.get_id())
     h = make_response(img)
     h.headers['Content-Type'] = 'image/png'
     return h
@@ -314,7 +309,7 @@ def userava():
 
 @app.route('/userava_thread/<id>')
 def userava_thread(id):
-    img = getAvatar(id)
+    img = get_avatar(id)
     h = make_response(img)
     h.headers['Content-Type'] = 'image/png'
     return h

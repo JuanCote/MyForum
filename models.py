@@ -10,10 +10,9 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
-
-def verifyExt(filename):
+def verify_ext(filename):
     ext = filename.split('.')[-1]
-    if ext == "png" or ext == "PNG":
+    if ext in ('png', 'PNG', 'jpg'):
         return True
     return False
 
@@ -39,7 +38,8 @@ class User(UserMixin, db.Model):
         return f'<users{self.id}>'
 
 
-def getAvatar(id):
+def get_avatar(id):
+    from main import app
     img = None
     user = User.query.filter_by(id=id).first()
     if user.avatar is None:

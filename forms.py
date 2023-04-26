@@ -8,44 +8,44 @@ from wtforms.validators import DataRequired, Email, Length, EqualTo
 from wtforms.widgets import TextArea
 
 class LoginForm(FlaskForm):
-    email = StringField("Электронная почта: ", validators=[Email("Некорректный адрес электронной почты")])
-    psw = PasswordField("Пароль: ", validators=[DataRequired(), Length(min=4, max=100, message="Пароль от 4 до 100")])
-    remember = BooleanField("Запомнить", default=False)
-    submit = SubmitField("Войти")
+    email = StringField("Email: ", validators=[Email("Incorrect email address")])
+    psw = PasswordField("Password: ", validators=[DataRequired(), Length(min=4, max=100, message="Password from 4 to 100")])
+    remember = BooleanField("Remember", default=False)
+    submit = SubmitField("Login")
     
     
 class RegisterForm(FlaskForm):
-    username = StringField("Имя: ", validators=[Length(min=4, max=30, message="Имя от 4 до 30")])
-    email = StringField("Email: ", validators=[Email("Неккоректный email")])
-    psw = PasswordField("Пароль: ", validators=[DataRequired(), Length(min=4, max=100, message="Пароль от 4 до 100 символов")])
-    psw2 = PasswordField("Повтор пароля: ", validators=[DataRequired(), EqualTo('psw', message="Пароли не совпадают")])
-    submit = SubmitField("Регистрация")
+    username = StringField("Name: ", validators=[Length(min=4, max=30, message="Name from 4 to 30")])
+    email = StringField("Email: ", validators=[Email("Incorrect email address")])
+    psw = PasswordField("Password: ", validators=[DataRequired(), Length(min=4, max=100, message="Password from 4 to 100")])
+    psw2 = PasswordField("Password repeat: ", validators=[DataRequired(), EqualTo('psw', message="Password mismatch")])
+    submit = SubmitField("Registration")
     
     
 class ProfileDetailsForm(FlaskForm):
-    get_email_from_group = BooleanField('Получать электронные письма о новостях и обновлениях', default=False)
-    get_ping_from_group = BooleanField('Уведомление о начале нового обсуждения в Вашей группе.', default=False)
+    get_email_from_group = BooleanField('Receive emails about news and updates', default=False)
+    get_ping_from_group = BooleanField('Notification about the start of a new discussion in your group.', default=False)
     date_of_birth = DateField(format='%Y-%m-%d')
-    show_date_of_birth = BooleanField('Показывать год рождения', default=False)
-    adress = StringField('Адрес:')
-    sex = RadioField('Пол:', choices=[('man','Мужской'),('woman','Женский'),('other','Другое')])
-    about_me = StringField(validators=[Length(min=20, max=300, message="Текст от 20 до 300 символов")], widget=TextArea())
-    submit = SubmitField("Сохранить")
+    show_date_of_birth = BooleanField('Show year of birth', default=False)
+    adress = StringField('Address:')
+    sex = RadioField('Gender:', choices=[('man','Male'),('woman','Female'),('other','Other')])
+    about_me = StringField(validators=[Length(min=20, max=300, message="Text from 20 to 300 characters")], widget=TextArea())
+    submit = SubmitField("Save")
     
     
 class ProfileSecurity(FlaskForm):
-    psw_now = PasswordField('Ваш текущий пароль', validators=[DataRequired(), Length(min=4, max=100, message="Пароль может быть только от 4 до 100 символов")])
-    psw_new = StringField('Новый пароль', validators=[DataRequired(), Length(min=4, max=100, message="Пароль от 4 до 100 символов")])
-    psw_confirm = StringField('Подтверждение нового пароля', validators=[DataRequired(), Length(min=4, max=100, message="Пароль от 4 до 100 символов")])
-    submit = SubmitField("Сохранить")
+    psw_now = PasswordField('Your current password', validators=[DataRequired(), Length(min=4, max=100, message="Password can only be between 4 and 100 characters")])
+    psw_new = StringField('New Password', validators=[DataRequired(), Length(min=4, max=100, message="Password from 4 to 100 characters")])
+    psw_confirm = StringField('New password confirmation', validators=[DataRequired(), Length(min=4, max=100, message="Password from 4 to 100 characters")])
+    submit = SubmitField("Save")
 
 
 class PostAdd(FlaskForm):
-    threads_name = StringField('', validators=[DataRequired(), Length(min=4, max=100, message="Название от 4 до 100 символов")])
-    threads_text = StringField('', validators=[DataRequired(), Length(min=20, max=500, message="Текст от 20 до 500 символов")], widget=TextArea())
-    submit = SubmitField('Создать тему')
+    threads_name = StringField('', validators=[DataRequired(), Length(min=4, max=100, message="Title from 4 to 100 characters")])
+    threads_text = StringField('', validators=[DataRequired(), Length(min=20, max=500, message="Text from 20 to 500 characters")], widget=TextArea())
+    submit = SubmitField('Create topic')
     
     
 class ReplyToThread(FlaskForm):
-    reply = StringField('', validators=[DataRequired(), Length(min=10, max=300, message="Название от 10 до 300 символов")], widget=TextArea())
-    submit = SubmitField('Ответить')
+    reply = StringField('', validators=[DataRequired(), Length(min=10, max=300, message="Title from 10 to 300 characters")], widget=TextArea())
+    submit = SubmitField('Answer')

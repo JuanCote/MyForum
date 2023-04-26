@@ -13,12 +13,12 @@
             <form action="" method="post" class="form-contact">
                 {{ form.hidden_tag() }}
                 <div class="window-name">
-                    Вход
+                    Login
                 </div>
                 <div class="blocks">
                     <div class="block-1">
                         <div class="data-user-login">{{ form.email.label() }}</div>
-                        <div class="data-user-login-psw">Пароль:</div>
+                        <div class="data-user-login-psw">Password:</div>
                     </div>
                     <div class="block-2"> 
                         {% with messages = get_flashed_messages(with_categories=true) %}

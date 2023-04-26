@@ -14,22 +14,22 @@
             {{ form.hidden_tag() }}
             {{ form.csrf_token }}
                 <div class="window-name">
-                    Регистрация 
+                    Registration
                 </div>
                 <div class="blocks">
                     <div class="block-1">
-                        <div class="data-user">Имя пользователя:</div>
-                        <span class="register-under">Обязательно</span>
-                        <div class="data-user">Электронная почта:</div>
-                        <span class="register-under">Обязательно</span>
-                        <div class="data-user">Пароль:</div>
-                        <span class="register-under">Обязательно</span>
-                        <div class="data-user">Повтор пароля:</div>
-                        <span class="register-under">Обязательно</span>
+                        <div class="data-user">Username:</div>
+                        <span class="register-under">Necessarily</span>
+                        <div class="data-user">Email:</div>
+                        <span class="register-under">Necessarily</span>
+                        <div class="data-user">Password:</div>
+                        <span class="register-under">Necessarily</span>
+                        <div class="data-user">Password repeat:</div>
+                        <span class="register-under">Necessarily</span>
                     </div>
                     <div class="block-2">
                         {{ form.username(class_="user-name") }}
-                        <div class="under-input">Это имя будет отображаться во всех сообщениях</div>
+                        <div class="under-input">This name will appear on all posts.</div>
                         {{ form.email(class_="user-email") }}
                         {% with messages = get_flashed_messages(with_categories=true) %}
                             {% if messages %}
@@ -51,11 +51,11 @@
                     </div>
                 </div>
                 <div class="window-footer">
-                    <input type="submit" class="register-submit" value="Регистрация">
+                    <input type="submit" class="register-submit" value="Registration">
                 </div>
             </form>
             <div class='under-form-register'>
-                Уже есть учетная запись? <a class='a-register' href={{ url_for('login') }}>Войти</a>
+                Already have an account? <a class='a-register' href={{ url_for('login') }}>Login</a>
             </div>
         </div>
     </div>

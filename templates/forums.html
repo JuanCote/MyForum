@@ -7,7 +7,7 @@
                 {{ name }}
             </div>
             {% if current_user.is_authenticated %}
-            <a class='a-add-post' href={{ url_for('add_post', thread_name=thread_name) }}><div class='button-add-post'><span class='pensil'><i class="fa-solid fa-pen"></i></span><span class='post-add-text'>Создать тему</span></div></a>
+            <a class='a-add-post' href={{ url_for('add_post', thread_name=thread_name) }}><div class='button-add-post'><span class='pensil'><i class="fa-solid fa-pen"></i></span><span class='post-add-text'>Create a topic</span></div></a>
             {% endif %}
         </div>
         {% if content %}
@@ -21,13 +21,13 @@
                                     <div class="general-section-content-post-name"><span class="ico-chat"><span class="fa-solid fa-comments"></i></span><span class="general-section-content-post-name-span">{{ thread }}</span></div>
                                     <div class="general-section-content-post-counttem">
                                         <span class="general-section-content-post-counttem-chislo">100</span>
-                                        <span class="general-section-content-post-counttem-temi">Темы</span>
+                                        <span class="general-section-content-post-counttem-temi">Topics</span>
                                     </div>
                                 </div>
                                 <div class="general-section-content-post-2chast">
                                 <div class="general-section-content-post-2chast-countsoobsh">
                                     <span class="general-section-content-post-2chast-countsoobsh-chislo">200</span>
-                                    <span class="general-section-content-post-2chast-countsoobsh-soobshi">Сообщения</span>
+                                    <span class="general-section-content-post-2chast-countsoobsh-soobshi">Messages</span>
                                     </div>
                                 </div>
                             </div>
@@ -53,8 +53,8 @@
                 <div class='status-part'>
                     <div class='status-underthread'><i class="fa-solid fa-lock"></i></div>
                     <div class='views-and-answers'>
-                        <div class='answers-underthread'>Ответы: <span class='answers-count'>10</span></div>
-                        <div class='views-underthread'>Просмотры: <span class='views-count'>5000</span></div>
+                        <div class='answers-underthread'>Answers: <span class='answers-count'>10</span></div>
+                        <div class='views-underthread'>Viewers: <span class='views-count'>5000</span></div>
                     </div>
                 </div>
                 <div class='end-part'>
@@ -68,12 +68,12 @@
         {% endif %}
         {% if content is none and content2 is none %}
         <div class='razdel-pust'>
-            Раздел пуст
+            Section is empty
         </div>
         {% endif %}
         {% if not current_user.is_authenticated %}
         <a href={{ url_for('login') }}><div class='button-login-or-register'>
-            Войдите или зарегистрируйтесь для ответа.
+            Login or register to reply.
         </div></a>
         {% endif %}
     </div>

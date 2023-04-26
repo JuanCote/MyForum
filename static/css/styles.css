@@ -185,7 +185,7 @@ html{
     width: 70px;
 }
 .logo-profile {
-    margin-left: 200px;
+    margin-left: 350px;
     width: 50px;
     border-radius: 50%;
     aspect-ratio: 1/1;
@@ -203,7 +203,7 @@ html{
     display: inline;
 }
 .login {
-    margin-left: 200px;
+    margin-left: 350px;
 }
 .li-login {
     color: #c8cadb;

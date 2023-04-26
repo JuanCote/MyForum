@@ -4,18 +4,18 @@
     {{ form.hidden_tag() }}
     {{ form.csrf_token }}
     <div class="right-window-security">
-        <div class="info-profile">Безопасность</div>
+        <div class="info-profile">Security</div>
         <div class="parts-profile">
             <div class="first-part-right-security">
                 <ul class="ul-first-part-right">
-                    <li class="li-psw-now">Ваш текущий пароль:</li>
-                    <li class="li-psw-new">Новый пароль:</li>
-                    <li class="li-psw-confirm">Подтверждение нового пароля:</li>
+                    <li class="li-psw-now">Your current password:</li>
+                    <li class="li-psw-new">New password:</li>
+                    <li class="li-psw-confirm">New password confirmation:</li>
                 </ul>
             </div>
             <div class='second-part-right-security'>
                 {{ form.psw_now(class_='security-now-psw') }}
-                <div class="under-input-security">По соображениям безопасности, Вы должны указать текущий пароль перед его изменением.</div>
+                <div class="under-input-security">For security reasons, you must specify the current password before changing it.</div>
                 {{ form.psw_new(class_="security-new-psw") }}
                 {{ form.psw_confirm(class_="security-new-psw") }}
                 {% with messages = get_flashed_messages(with_categories=true) %}

@@ -2,8 +2,8 @@
 {% block content %}
 <div class="content">
     <div class="container">
-        <h1 class="welcom">Добро пожаловать на форум Samp-Rp</h1>
-        <p class="under-welcom">Для того, что бы общаться с другими игроками, а так же участвовать в жизни форума, вы должны пройти регистрацию либо авторизацию.</p>
+        <h1 class="welcom">Welcome to my forum</h1>
+        <p class="under-welcom">In order to communicate with other users, as well as participate in the life of the forum, you must register or log in.</p>
         {% for section, threads in content.items() %}
         <div class="general-section">
             <div class="header-general-section">
@@ -18,13 +18,13 @@
                                     <div class="general-section-content-post-name"><span class="ico-chat"><span class="fa-solid fa-comments"></i></span><span class="general-section-content-post-name-span">{{ thread }}</span></div>
                                     <div class="general-section-content-post-counttem">
                                         <span class="general-section-content-post-counttem-chislo">100</span>
-                                        <span class="general-section-content-post-counttem-temi">Темы</span>
+                                        <span class="general-section-content-post-counttem-temi">Topics</span>
                                     </div>
                                 </div>
                                 <div class="general-section-content-post-2chast">
                                     <div class="general-section-content-post-2chast-countsoobsh">
                                         <span class="general-section-content-post-2chast-countsoobsh-chislo">200</span>
-                                        <span class="general-section-content-post-2chast-countsoobsh-soobshi">Сообщения</span>
+                                        <span class="general-section-content-post-2chast-countsoobsh-soobshi">Messages</span>
                                     </div>
                                 </div>
                             </div>
@@ -35,7 +35,7 @@
         </div>
         {% endfor %}
         <div class="users-online">
-            <div class="users-names"><i class="fa-solid fa-users"></i>Пользователи онлайн</div>
+            <div class="users-names"><i class="fa-solid fa-users"></i>Users online (not yet available)</div>
         </div>
     </div>
 </div>

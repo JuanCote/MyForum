@@ -27,8 +27,8 @@
 				<a href="{{ url_for('profile') }}"><div class="profile-name">{{ current_user.username }}</div></a>
 			{% else %}
 				<ul class="login">
-					<a href="{{ url_for('login') }}"><li class="li-login"><i class="fa-solid fa-key"></i><span class="vhod">Вход</li></span></a>
-					<a href="{{ url_for('register') }}"><li class="li-login"><i class="fa-solid fa-server"></i><span class="vhod">Регистрация</span></li></a>
+					<a href="{{ url_for('login') }}"><li class="li-login"><i class="fa-solid fa-key"></i><span class="vhod">Login</li></span></a>
+					<a href="{{ url_for('register') }}"><li class="li-login"><i class="fa-solid fa-server"></i><span class="vhod">Registration</span></li></a>
 				</ul>
 			{% endif %}
 		</div>

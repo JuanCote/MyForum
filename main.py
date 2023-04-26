@@ -1,15 +1,5 @@
-from flask import Flask
-from flask_migrate import Migrate
-
-from config import Config
-from models import db
-
-app = Flask(__name__)
-app.config.from_object(Config)
-db.init_app(app)
-migrate = Migrate(app, db)
 NAME = 'main'
-from flask import Flask, make_response, render_template, url_for, request, redirect, flash
+from flask import Flask, make_response, render_template, url_for, request, redirect, flash, Blueprint
 from datetime import datetime
 import sqlite3
 from sqlalchemy import MetaData
@@ -20,6 +10,7 @@ from flask_migrate import Migrate
 from config import Config
 from forms import LoginForm, RegisterForm, ProfileDetailsForm, ProfileSecurity, PostAdd, ReplyToThread
 from models import db, Sections, User, get_avatar, verify_ext, Under_threads, Messages, Threads
+
 
 DEBUG = False
 MAX_CONTENT_LENGTH = 1024 * 1024  # TODO: Изменить дерьмо
@@ -32,13 +23,19 @@ convention = {
     "pk": "pk_%(table_name)s"
 }
 
-app = Flask(__name__, template_folder='templates')
-app.config.from_object(Config)
 metadata = MetaData(naming_convention=convention)
-db.init_app(app)
+
+
+def create_app():
+    app = Flask(__name__, template_folder='templates')
+    app.config.from_object(Config)
+    db.init_app(app)
+    return app
+
+
+app = create_app()
 migrate = Migrate(app, db, render_as_batch=True)
 login = LoginManager(app)
-
 
 
 @login.user_loader
@@ -314,6 +311,5 @@ def userava_thread(id):
     h.headers['Content-Type'] = 'image/png'
     return h
 
-
-if __name__ == "__main__":
-    app.run(debug=DEBUG, use_reloader=False, host='0.0.0.0')
+# if __name__ == "__main__":
+#     app.run(debug=DEBUG, use_reloader=False, host='0.0.0.0')

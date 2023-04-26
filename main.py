@@ -21,7 +21,7 @@ from config import Config
 from forms import LoginForm, RegisterForm, ProfileDetailsForm, ProfileSecurity, PostAdd, ReplyToThread
 from models import db, Sections, User, get_avatar, verify_ext, Under_threads, Messages, Threads
 
-DEBUG = True
+DEBUG = False
 MAX_CONTENT_LENGTH = 1024 * 1024  # TODO: Изменить дерьмо
 
 convention = {
@@ -316,4 +316,4 @@ def userava_thread(id):
 
 
 if __name__ == "__main__":
-    app.run(debug=DEBUG, use_reloader=False)
+    app.run(debug=DEBUG, use_reloader=False, host='0.0.0.0')

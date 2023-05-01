@@ -42,10 +42,10 @@ class ProfileSecurity(FlaskForm):
 
 class PostAdd(FlaskForm):
     threads_name = StringField('', validators=[DataRequired(), Length(min=4, max=100, message="Title from 4 to 100 characters")])
-    threads_text = StringField('', validators=[DataRequired(), Length(min=20, max=500, message="Text from 20 to 500 characters")], widget=TextArea())
+    threads_text = StringField('', validators=[DataRequired(), Length(min=20, max=1000, message="Text from 20 to 1000 characters")], widget=TextArea())
     submit = SubmitField('Create topic')
     
     
 class ReplyToThread(FlaskForm):
-    reply = StringField('', validators=[DataRequired(), Length(min=10, max=300, message="Title from 10 to 300 characters")], widget=TextArea())
+    reply = StringField('', validators=[DataRequired(), Length(min=10, max=1000, message="Title from 10 to 1000 characters")], widget=TextArea())
     submit = SubmitField('Answer')

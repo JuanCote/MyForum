@@ -55,29 +55,29 @@ def get_avatar(id):
 
 class Sections(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    section_name = db.Column(db.String, nullable=True)
+    section_name = db.Column(db.String(50), nullable=True, )
 
 
 class Threads(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    threads_name = db.Column(db.String, nullable=True)
+    threads_name = db.Column(db.String(200), nullable=True)
     parent_id = db.Column(db.Integer)
-    section = db.Column(db.Integer, db.ForeignKey('sections.id'))
+    section = db.Column(db.Integer)
 
 
 class Under_threads(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    threads_name = db.Column(db.String, nullable=True)
-    threads_text = db.Column(db.String, nullable=True)
-    parent_id = db.Column(db.Integer, db.ForeignKey('threads.id'))
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    username = db.Column(db.String)
+    threads_name = db.Column(db.String(400), nullable=True)
+    threads_text = db.Column(db.String(1500), nullable=True)
+    parent_id = db.Column(db.Integer)
+    user_id = db.Column(db.Integer)
+    username = db.Column(db.String(100))
     time = db.Column(db.Date)
 
 
 class Messages(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     message = db.Column(db.Text)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    parent_id = db.Column(db.Integer, db.ForeignKey('under_threads.id'))
+    user_id = db.Column(db.Integer)
+    parent_id = db.Column(db.Integer)
     time = db.Column(db.Date)
